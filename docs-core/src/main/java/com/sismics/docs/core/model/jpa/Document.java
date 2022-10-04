@@ -58,6 +58,30 @@ public class Document implements Loggable {
      */
     @Column(name = "DOC_SUBJECT_C", length = 500)
     private String subject;
+
+    /**
+     * GPA.
+     */
+    @Column(name = "DOC_GPA_C", length = 500)
+    private String gpa;
+
+    /**
+     * Skills.
+     */
+    @Column(name = "DOC_SKILLS_C", length = 500)
+    private String skills;
+
+    /**
+     * Experience.
+     */
+    @Column(name = "DOC_EXPERIENCE_C", length = 500)
+    private String experience;
+
+    /**
+     * Education.
+     */
+    @Column(name = "DOC_EDUCATION_C", length = 500)
+    private String education;
     
     /**
      * Identifer.
@@ -174,6 +198,38 @@ public class Document implements Loggable {
 
     public void setSubject(String subject) {
         this.subject = subject;
+    }
+
+    public String getGpa() {
+        return gpa;
+    }
+
+    public void setGpa(String gpa) {
+        this.gpa = gpa;
+    }
+
+    public String getSkills() {
+        return skills;
+    }
+
+    public void setSkills(String skills) {
+        this.skills = skills;
+    }
+
+    public String getExperience() {
+        return experience;
+    }
+
+    public void setExperience(String experience) {
+        this.experience = experience;
+    }
+
+    public String getEducation() {
+        return education;
+    }
+
+    public void setEducation(String education) {
+        this.education = education;
     }
 
     public String getIdentifier() {
