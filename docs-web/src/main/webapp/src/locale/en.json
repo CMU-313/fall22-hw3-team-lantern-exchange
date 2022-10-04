@@ -148,6 +148,12 @@
       "activity": {
         "activity": "Activity",
         "message": "Every actions on this document are logged here."
+      },
+      "dashboard": {
+        "dashboard": "Dashboard",
+        "message": "Review dashboard for statistics, metrics, and scoring.",
+        "title": "Reviewer Dashboard",
+        "score_gpa": "GPA Value"
       }
     },
     "edit": {

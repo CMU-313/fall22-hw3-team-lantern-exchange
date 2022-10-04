@@ -1,0 +1,20 @@
+<p class="well-sm" translate="document.view.dashboard.message"></p>
+
+<p>Review dashboard for statistics, metrics, and scoring.</p>
+
+<div class="well">
+  <!-- {{'document.view.dashboard.title'}} in heading3 not working --> 
+  <h3>Reviewer Dashboard</h3>
+
+</div>
+
+<table class="table table-dashboard">
+    <tr>
+      <th style="width: 30%">{{ 'document.view.dashboard.score_gpa'}}</th>
+        <td>
+          <span class="label" ng-repeat="score_gpa">
+            {{ score_gpa }}
+          </span>
+        </td>
+    </tr>
+</table>
