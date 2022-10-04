@@ -1,11 +1,98 @@
 <p class="well-sm" translate="document.view.dashboard.message"></p>
 
-<p>Review dashboard for statistics, metrics, and scoring.</p>
-
 <div class="well">
   <!-- {{'document.view.dashboard.title'}} in heading3 not working --> 
-  <h3>Reviewer Dashboard</h3>
-
+  <h3>Reviewer's Dashboard</h3>
+  <p>Review dashboard for statistics, metrics, and scoring.</p>
+    <table>
+      <form>
+        <label for="GPA">Score Applicant's GPA:   </label>
+        <select id="score_gpa" name="scores">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+          <option value="9">9</option>
+          <option value="10">10</option>
+        </select>
+        <br>
+  
+        <label for="Skills">Score Applicant's Skills:   </label>
+        <select class="score_skills" name="scores">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+          <option value="9">9</option>
+          <option value="10">10</option>
+        </select>
+        <br>
+  
+        <label for="Experience">Score Applicant's Experience:   </label>
+        <select class="score_experience" name="scores">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+          <option value="9">9</option>
+          <option value="10">10</option>
+        </select>
+        <br>
+  
+        <label for="Education">Score Applicant's Education:   </label>
+        <select class="score_education" name="scores">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+          <option value="9">9</option>
+          <option value="10">10</option>
+        </select>
+        <br>
+  
+        <label for="Overall">Score Applicant Overall:   </label>
+        <select class="score_overall" name="scores">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+          <option value="9">9</option>
+          <option value="10">10</option>
+        </select>
+        
+      </form>
+  
+      <p class="text-center">
+        <button class="btn btn-primary" ngf-select
+          ngf-change=""
+          input-file-multiple="multiple"
+          ngf-multiple="true">
+          Submit Scores
+        </button>
+      </p>
+  
+    </table>
+  
 </div>
 
 <table class="table table-dashboard">
