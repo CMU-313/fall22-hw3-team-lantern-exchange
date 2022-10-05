@@ -14,6 +14,7 @@ import com.sismics.docs.core.dao.dto.*;
 import com.sismics.docs.core.event.DocumentCreatedAsyncEvent;
 import com.sismics.docs.core.event.DocumentDeletedAsyncEvent;
 import com.sismics.docs.core.event.DocumentUpdatedAsyncEvent;
+import com.sismics.docs.core.event.DocumentRatedAsyncEvent;
 import com.sismics.docs.core.event.FileDeletedAsyncEvent;
 import com.sismics.docs.core.model.context.AppContext;
 import com.sismics.docs.core.model.jpa.Document;
@@ -99,6 +100,10 @@ public class DocumentResource extends BaseResource {
      * @apiSuccess {String} language Language
      * @apiSuccess {Boolean} shared True if the document is shared
      * @apiSuccess {Number} file_count Number of files in this document
+     * @apiSuccess {String} ratings of document's gpa
+     * @apiSuccess {String} ratings of document's skills
+     * @apiSuccess {String} ratings of document's experience
+     * @apiSuccess {String} ratings of document's education
      * @apiSuccess {Object[]} tags List of tags
      * @apiSuccess {String} tags.id ID
      * @apiSuccess {String} tags.name Name
@@ -173,7 +178,11 @@ public class DocumentResource extends BaseResource {
                 .add("update_date", documentDto.getUpdateTimestamp())
                 .add("language", documentDto.getLanguage())
                 .add("shared", documentDto.getShared())
-                .add("file_count", documentDto.getFileCount());
+                .add("file_count", documentDto.getFileCount())
+                .add("gpa", documentDto.getGpa())
+                .add("skills", documentDto.getSkills())
+                .add("experience", documentDto.getExperience())
+                .add("education", documentDto.getEducation());
 
         List<TagDto> tagDtoList = null;
         if (principal.isAnonymous()) {
@@ -380,6 +389,10 @@ public class DocumentResource extends BaseResource {
      * @apiSuccess {Boolean} documents.active_route True if a route is active on this document
      * @apiSuccess {Boolean} documents.current_step_name Name of the current route step
      * @apiSuccess {Number} documents.file_count Number of files in this document
+     * @apiSuccess {String} ratings of document's gpa
+     * @apiSuccess {String} ratings of document's skills
+     * @apiSuccess {String} ratings of document's experience
+     * @apiSuccess {String} ratings of document's education
      * @apiSuccess {Object[]} documents.tags List of tags
      * @apiSuccess {String} documents.tags.id ID
      * @apiSuccess {String} documents.tags.name Name
@@ -466,6 +479,10 @@ public class DocumentResource extends BaseResource {
                     .add("active_route", documentDto.isActiveRoute())
                     .add("current_step_name", JsonUtil.nullable(documentDto.getCurrentStepName()))
                     .add("file_count", documentDto.getFileCount())
+                    .add("gpa", documentDto.getGpa())
+                    .add("skills", documentDto.getSkills())
+                    .add("experience", documentDto.getExperience())
+                    .add("education", documentDto.getEducation())
                     .add("tags", tags);
             if (Boolean.TRUE == files) {
                 JsonArrayBuilder filesArrayBuilder = Json.createArrayBuilder();
@@ -770,6 +787,10 @@ public class DocumentResource extends BaseResource {
         document.setCoverage(coverage);
         document.setRights(rights);
         document.setLanguage(language);
+        document.setGpa("");
+        document.setSkills("");
+        document.setExperience("");
+        document.setEducation("");
         if (createDate == null) {
             document.setCreateDate(new Date());
         } else {
@@ -935,6 +956,83 @@ public class DocumentResource extends BaseResource {
         return Response.ok().entity(response.build()).build();
     }
 
+     /**
+     * Add a rating
+     *
+     * @api {post} /document/rate:id Add a rating
+     * @apiName PostDocument
+     * @apiGroup Document
+     * @apiParam {String} id ID
+     * @apiParam {String} gpa GPA
+     * @apiParam {String} skills Skills
+     * @apiParam {String} experience Experience
+     * @apiParam {String} education Education
+     * @apiSuccess {String} id Document ID
+     * @apiError (client) ForbiddenError Access denied or document not writable
+     * @apiError (client) ValidationError Validation error
+     * @apiError (client) NotFound Document not found
+     * @apiPermission user
+     * @apiVersion 1.5.0
+     *
+     * @param title Title
+     * @param description Description
+     * @return Response
+     */
+
+    @POST
+    @Path("{rate/id: [a-z0-9\\-]+}")
+    public Response rate(
+            @PathParam("id") String id,
+            @FormParam("gpa") String gpa,
+            @FormParam("skills") String skills,
+            @FormParam("experience") String experience,
+            @FormParam("education") String education) {
+        if (!authenticate()) {
+            throw new ForbiddenClientException();
+        }
+        
+        // Validate input data
+        gpa = ValidationUtil.validateLength(gpa, "gpa", 1, 3, false);
+        skills = ValidationUtil.validateLength(skills, "skills", 1, 3, false);
+        experience = ValidationUtil.validateLength(experience, "experience", 1, 3, false);
+        education = ValidationUtil.validateLength(education, "education", 1, 3, false);
+        
+        // Check write permission
+        AclDao aclDao = new AclDao();
+        if (!aclDao.checkPermission(id, PermType.WRITE, getTargetIdList(null))) {
+            throw new ForbiddenClientException();
+        }
+        
+        // Get the document
+        DocumentDao documentDao = new DocumentDao();
+        Document document = documentDao.getById(id);
+        if (document == null) {
+            throw new NotFoundException();
+        }
+        
+        // Update the document
+        String curGpa = document.getGpa();
+        document.setGpa(curGpa+" "+gpa);
+        String curSkills = document.getSkills();
+        document.setSkills(curSkills + " " + skills);
+        String curExperience = document.getExperience();
+        document.setGpa(curExperience+" "+experience);
+        String curEducation = document.getEducation();
+        document.setEducation(curEducation + " " + education);
+
+        
+        documentDao.update(document, principal.getId());
+
+        // Raise a document updated event
+        DocumentRatedAsyncEvent documentRatedAsyncEvent = new DocumentRatedAsyncEvent();
+        documentRatedAsyncEvent.setUserId(principal.getId());
+        documentRatedAsyncEvent.setDocumentId(id);
+        ThreadLocalContext.get().addAsyncEvent(documentRatedAsyncEvent);
+        
+        JsonObjectBuilder response = Json.createObjectBuilder()
+                .add("id", id);
+        return Response.ok().entity(response.build()).build();
+    }
     /**
      * Import a new document from an EML file.
      *
