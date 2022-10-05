@@ -3,7 +3,8 @@
 <div class="well">
   <!-- {{'document.view.dashboard.title'}} in heading3 not working --> 
   <h3>Reviewer's Dashboard</h3>
-  <p>Review dashboard for statistics, metrics, and scoring.</p>
+  <p>Review dashboard for statistics, metrics, and scoring.</p><b>
+  <p>A score of 10 = most ideal candidate, a score of 1 = least ideal candidate</p>
     <table>
       <form>
         <label for="GPA">Score Applicant's GPA:   </label>
@@ -84,8 +85,7 @@
   
       <p class="text-center">
         <button class="btn btn-primary" ngf-select
-          ngf-change=""
-          input-file-multiple="multiple"
+          ngf-change="" input-file-multiple="multiple"
           ngf-multiple="true">
           Submit Scores
         </button>
@@ -96,12 +96,31 @@
 </div>
 
 <table class="table table-dashboard">
+    <h3>Average of all Reviewer Scores*</h3>
+    <h6>*Updates periodically after submitting reviewer scores.</h6>
+    <caption>Number of completed reviews on this applicant: 0/3 </caption>
     <tr>
-      <th style="width: 30%">{{ 'document.view.dashboard.score_gpa'}}</th>
-        <td>
-          <span class="label" ng-repeat="score_gpa">
-            {{ score_gpa }}
-          </span>
-        </td>
+      <th>GPA:</th>
+      <td> N/A </td>
+    </tr>
+    <tr>
+      <th>Skills:</th>
+      <td> N/A </td>
+    </tr>
+    <tr>
+      <th>Experience:</th>
+      <td> N/A </td>
+    </tr>
+    <tr>
+      <th>Education:</th>
+      <td> N/A </td>
+    </tr>
+    <tr>
+      <th>Overall:</th>
+      <td> N/A </td>
+    </tr>
+    <tr>
+      <th>Final Score (Total of Averages):</th>
+      <td>N/A</td>
     </tr>
 </table>
