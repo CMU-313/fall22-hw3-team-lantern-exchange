@@ -8,7 +8,7 @@
     <table>
       <form>
         <label for="GPA">Score Applicant's GPA:   </label>
-        <select id="score_gpa" name="scores">
+        <select id="gpa" name="scores">
           <option value="1">1</option>
           <option value="2">2</option>
           <option value="3">3</option>
@@ -23,7 +23,7 @@
         <br>
   
         <label for="Skills">Score Applicant's Skills:   </label>
-        <select class="score_skills" name="scores">
+        <select class="skills" name="scores">
           <option value="1">1</option>
           <option value="2">2</option>
           <option value="3">3</option>
@@ -38,7 +38,7 @@
         <br>
   
         <label for="Experience">Score Applicant's Experience:   </label>
-        <select class="score_experience" name="scores">
+        <select class="experience" name="scores">
           <option value="1">1</option>
           <option value="2">2</option>
           <option value="3">3</option>
@@ -53,7 +53,7 @@
         <br>
   
         <label for="Education">Score Applicant's Education:   </label>
-        <select class="score_education" name="scores">
+        <select class="education" name="scores">
           <option value="1">1</option>
           <option value="2">2</option>
           <option value="3">3</option>
@@ -66,30 +66,15 @@
           <option value="10">10</option>
         </select>
         <br>
-  
-        <label for="Overall">Score Applicant Overall:   </label>
-        <select class="score_overall" name="scores">
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-          <option value="6">6</option>
-          <option value="7">7</option>
-          <option value="8">8</option>
-          <option value="9">9</option>
-          <option value="10">10</option>
-        </select>
         
       </form>
   
       <p class="text-center">
-        <button class="btn btn-primary" ngf-select
-          ngf-change="" input-file-multiple="multiple"
-          ngf-multiple="true">
+        <button class="btn btn-primary" ng-click="PostDocument()">
           Submit Scores
         </button>
       </p>
+  
   
     </table>
   
