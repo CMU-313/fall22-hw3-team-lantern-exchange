@@ -55,7 +55,7 @@
       document.querySelector('.educationScore').textContent = educationScore;
       document.querySelector('.educationAvg').textContent = educationTotal / reviewCount;
 
-      document.querySelector('.overallAvg').textContent = (gpaTotal / reviewCount) + (skillsTotal / reviewCount) + (experienceTotal / reviewCount) + (educationTotal / reviewCount)
+      document.querySelector('.overallAvg').textContent = (gpaTotal / reviewCount) + (skillsTotal / reviewCount) + (experienceTotal / reviewCount) + (educationTotal / reviewCount) + "/40";
       
     }
 
