@@ -309,10 +309,10 @@ public class TestDocumentResource extends BaseJerseyTest {
         Assert.assertEquals(create1Date, json.getJsonNumber("create_date").longValue());
         Assert.assertNotNull(json.get("update_date"));
         tags = json.getJsonArray("tags");
-        Assert.assertEquals("", json.getString("gpa"));
-        Assert.assertEquals("", json.getString("skills"));
-        Assert.assertEquals("", json.getString("experience"));
-        Assert.assertEquals("", json.getString("education"));
+        Assert.assertEquals("4", json.getString("gpa"));
+        Assert.assertEquals("10", json.getString("skills"));
+        Assert.assertEquals("2", json.getString("experience"));
+        Assert.assertEquals("4", json.getString("education"));
         Assert.assertEquals(2, tags.size());
         Assert.assertEquals(tag2Id, tags.getJsonObject(0).getString("id"));
         Assert.assertEquals(tag1Id, tags.getJsonObject(1).getString("id"));
@@ -1050,3 +1050,4 @@ public class TestDocumentResource extends BaseJerseyTest {
         Assert.assertTrue(meta.getBoolean("value"));
     }
 }
+

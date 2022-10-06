@@ -479,10 +479,10 @@ public class DocumentResource extends BaseResource {
                     .add("active_route", documentDto.isActiveRoute())
                     .add("current_step_name", JsonUtil.nullable(documentDto.getCurrentStepName()))
                     .add("file_count", documentDto.getFileCount())
-                    .add("gpa", documentDto.getGpa())
-                    .add("skills", documentDto.getSkills())
-                    .add("experience", documentDto.getExperience())
-                    .add("education", documentDto.getEducation())
+                    .add("gpa", JsonUtil.nullable(documentDto.getGpa()))
+                    .add("skills", JsonUtil.nullable(documentDto.getSkills()))
+                    .add("experience", JsonUtil.nullable(documentDto.getExperience()))
+                    .add("education", JsonUtil.nullable(documentDto.getEducation()))
                     .add("tags", tags);
             if (Boolean.TRUE == files) {
                 JsonArrayBuilder filesArrayBuilder = Json.createArrayBuilder();
@@ -980,7 +980,7 @@ public class DocumentResource extends BaseResource {
      */
 
     @POST
-    @Path("{rate/id: [a-z0-9\\-]+}")
+    @Path("rate/{id: [a-z0-9\\-]+}")
     public Response rate(
             @PathParam("id") String id,
             @FormParam("gpa") String gpa,
