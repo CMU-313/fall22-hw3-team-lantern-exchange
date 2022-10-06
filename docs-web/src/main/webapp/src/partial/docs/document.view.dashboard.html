@@ -1,83 +1,76 @@
 <p class="well-sm" translate="document.view.dashboard.message"></p>
 
-<div class="well">
-  <!-- {{'document.view.dashboard.title'}} in heading3 not working --> 
-  <h3>Reviewer's Dashboard</h3>
-  <p>Review dashboard for statistics, metrics, and scoring.</p><b>
-  <p>A score of 10 = most ideal candidate, a score of 1 = least ideal candidate</p>
-    <table>
-      <form>
-        <label for="GPA">Score Applicant's GPA:   </label>
-        <select id="gpa" name="scores">
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-          <option value="6">6</option>
-          <option value="7">7</option>
-          <option value="8">8</option>
-          <option value="9">9</option>
-          <option value="10">10</option>
-        </select>
-        <br>
-  
-        <label for="Skills">Score Applicant's Skills:   </label>
-        <select class="skills" name="scores">
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-          <option value="6">6</option>
-          <option value="7">7</option>
-          <option value="8">8</option>
-          <option value="9">9</option>
-          <option value="10">10</option>
-        </select>
-        <br>
-  
-        <label for="Experience">Score Applicant's Experience:   </label>
-        <select class="experience" name="scores">
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-          <option value="6">6</option>
-          <option value="7">7</option>
-          <option value="8">8</option>
-          <option value="9">9</option>
-          <option value="10">10</option>
-        </select>
-        <br>
-  
-        <label for="Education">Score Applicant's Education:   </label>
-        <select class="education" name="scores">
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-          <option value="6">6</option>
-          <option value="7">7</option>
-          <option value="8">8</option>
-          <option value="9">9</option>
-          <option value="10">10</option>
-        </select>
-        <br>
-        
-      </form>
-  
-      <p class="text-center">
-        <button class="btn btn-primary" ng-click="PostDocument()">
-          Submit Scores
-        </button>
-      </p>
-  
-  
-    </table>
-  
+<!-- below source to js file may not be necessary as was added to index.html-->
+<script src="../../app/docs/controller/document/DocumentViewDashboard.js" 
+    type="text/javascript"></script>
+
+<div class="well" ng-app="dashboardApp" ng-controller="DashboardCtrl">
+  <h3>Reviewer Dashboard</h3>
+
+  <table>
+    <form>
+      <label for="GPA">Score Applicant's GPA:   </label>
+      <select ng-model="GPASelect"
+              ng-options = "option for option in GPAOptions">
+        <option value="">--Select value--</option>
+      </select>
+      <br>
+
+    <label for="Skills">Score Applicant's Skills:   </label>
+    <select id="skills" name="scores" ng-model="SkillSelect">
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+      <option value="6">6</option>
+      <option value="7">7</option>
+      <option value="8">8</option>
+      <option value="9">9</option>
+      <option value="10">10</option>
+    </select>
+    <br>
+
+    <label for="Experience">Score Applicant's Experience:   </label>
+    <select id="experience" name="scores" ng-model="ExpSelect">
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+      <option value="6">6</option>
+      <option value="7">7</option>
+      <option value="8">8</option>
+      <option value="9">9</option>
+      <option value="10">10</option>
+    </select>
+    <br>
+
+    <label for="Education">Score Applicant's Education:   </label>
+    <select id="education" name="scores" ng-model="EduSelect">
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+      <option value="6">6</option>
+      <option value="7">7</option>
+      <option value="8">8</option>
+      <option value="9">9</option>
+      <option value="10">10</option>
+    </select>
+    <br>
+    
+  </form>
+
+  <p class="text-center">
+    <button id="btn btn-primary" value="Submit" ng-click="checkselection()">
+      Submit Scores
+    </button>
+  </p>
+
+</table>
+
 </div>
 
 <table class="table table-dashboard">
@@ -86,26 +79,24 @@
     <caption>Number of completed reviews on this applicant: 0/3 </caption>
     <tr>
       <th>GPA:</th>
-      <td> N/A </td>
+      <td>  {{GPASelect}} </td>
     </tr>
     <tr>
       <th>Skills:</th>
-      <td> N/A </td>
+      <td> {{SkillSelect}} </td>
     </tr>
     <tr>
       <th>Experience:</th>
-      <td> N/A </td>
+      <td> saved </td>
     </tr>
     <tr>
       <th>Education:</th>
-      <td> N/A </td>
+      <td> {{EduSelect}} </td>
     </tr>
     <tr>
-      <th>Overall:</th>
-      <td> N/A </td>
-    </tr>
-    <tr>
-      <th>Final Score (Total of Averages):</th>
+      <th>Overall Score (Total of Averages):</th>
       <td>N/A</td>
     </tr>
 </table>
+
+</body>
