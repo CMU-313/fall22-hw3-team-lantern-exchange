@@ -11,10 +11,9 @@
     <form>
       <label for="GPA">Score Applicant's GPA:   </label>
       <select ng-model="GPASelect"
-              ng-options = "option for option in GPAOptions">
-        <option value="">--Select value--</option>
-      </select>
-      <br>
+              ng-options = "gpa.score for gpa in GPAOptions">
+        <option value="">-Select value-</option>
+      </select><br>
 
     <label for="Skills">Score Applicant's Skills:   </label>
     <select id="skills" name="scores" ng-model="SkillSelect">
@@ -79,7 +78,7 @@
     <caption>Number of completed reviews on this applicant: 0/3 </caption>
     <tr>
       <th>GPA:</th>
-      <td>  {{GPASelect}} </td>
+      <td>  {{GPAavg}} </td>
     </tr>
     <tr>
       <th>Skills:</th>
@@ -87,11 +86,11 @@
     </tr>
     <tr>
       <th>Experience:</th>
-      <td> saved </td>
+      <td> N/A </td>
     </tr>
     <tr>
       <th>Education:</th>
-      <td> {{EduSelect}} </td>
+      <td> N/A </td>
     </tr>
     <tr>
       <th>Overall Score (Total of Averages):</th>
@@ -100,3 +99,4 @@
 </table>
 
 </body>
+
