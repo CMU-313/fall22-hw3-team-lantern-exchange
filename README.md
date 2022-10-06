@@ -124,6 +124,10 @@ mvn jetty:run
 
 **The default admin password is "admin". Don't forget to change it before going to production.**
 
+# Team Lantern Exchange Changes 
+The documentation for our changes will be found in the file teamLanternExchangeDocumentation.md
+
+
 # License
 
 Teedy is released under the terms of the GPL license. See `COPYING` for more

@@ -1,0 +1,9 @@
+**Documentation**
+
+# How to Use the Dashboard 
+When a file is uploaded, you will see five tabs, with Dashboard at the end. After reviewing the file, the user can choose to rank all the metrics that were decided on: GPA, Education, Skills, and Experience.
+After scoring the applicant, user can save their scores, and view the average score that the applicant received below the dashboard -- according to everyone else's scoring of the applicant. 
+
+# How to User Test the Dashboard
+User testing this feature requires a user to log in as an admin, or a reviewer, and enter in their scores of an uploaded document. 
+After submitting, user should see aggregate scores changes reflected below the dashboard. 
