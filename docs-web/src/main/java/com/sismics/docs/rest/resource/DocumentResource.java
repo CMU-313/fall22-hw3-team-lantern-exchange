@@ -1012,13 +1012,30 @@ public class DocumentResource extends BaseResource {
         
         // Update the document
         String curGpa = document.getGpa();
-        document.setGpa(curGpa+" "+gpa);
+        if (curGpa == "") {
+            document.setGpa(gpa);
+        } else {
+            document.setGpa(curGpa+" "+gpa);
+        }
         String curSkills = document.getSkills();
-        document.setSkills(curSkills + " " + skills);
+        if (curSkills == "") {
+            document.setSkills(skills);
+        } else {
+            document.setSkills(curSkills+" "+skills);
+        }
         String curExperience = document.getExperience();
-        document.setGpa(curExperience+" "+experience);
+        if (curExperience == "") {
+            document.setExperience(experience);
+        } else {
+            document.setGpa(curExperience+" "+experience);
+        }
         String curEducation = document.getEducation();
-        document.setEducation(curEducation + " " + education);
+        if (curEducation == "") {
+            document.setEducation(education);
+        } else {
+            document.setEducation(curEducation + " " + education);
+        }
+        
 
         
         documentDao.update(document, principal.getId());
@@ -1248,3 +1265,4 @@ public class DocumentResource extends BaseResource {
         }
     }
 }
+

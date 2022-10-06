@@ -117,10 +117,6 @@ public class TestDocumentResource extends BaseJerseyTest {
         Assert.assertEquals("eng", documents.getJsonObject(0).getString("language"));
         Assert.assertEquals(file1Id, documents.getJsonObject(0).getString("file_id"));
         Assert.assertEquals(1, documents.getJsonObject(0).getInt("file_count"));
-        Assert.assertEquals("", documents.getJsonObject(0).getString("gpa"));
-        Assert.assertEquals("", documents.getJsonObject(0).getString("skills"));
-        Assert.assertEquals("", documents.getJsonObject(0).getString("experience"));
-        Assert.assertEquals("", documents.getJsonObject(0).getString("education"));
         Assert.assertEquals(2, tags.size());
         Assert.assertEquals(tag2Id, tags.getJsonObject(0).getString("id"));
         Assert.assertEquals("HR", tags.getJsonObject(0).getString("name"));
@@ -129,10 +125,6 @@ public class TestDocumentResource extends BaseJerseyTest {
         Assert.assertEquals("SuperTag", tags.getJsonObject(1).getString("name"));
         Assert.assertEquals("#ffff00", tags.getJsonObject(1).getString("color"));
         Assert.assertFalse(documents.getJsonObject(0).getBoolean("active_route"));
-        Assert.assertEquals("", documents.getJsonObject(1).getString("gpa"));
-        Assert.assertEquals("", documents.getJsonObject(1).getString("skills"));
-        Assert.assertEquals("", documents.getJsonObject(1).getString("experience"));
-        Assert.assertEquals("", documents.getJsonObject(1).getString("education"));
 
         // List all documents from document3
         json = target().path("/document/list")
@@ -281,7 +273,7 @@ public class TestDocumentResource extends BaseJerseyTest {
         json = target().path("/document/rate/" + document1Id).request()
                 .cookie(TokenBasedSecurityFilter.COOKIE_NAME, document1Token)
                 .post(Entity.form(new Form()
-                        .param("gpa", "4")
+                        .param("gpa", "2")
                         .param("skills", "10")
                         .param("experience", "2")
                         .param("education", "4")), JsonObject.class);
@@ -309,7 +301,7 @@ public class TestDocumentResource extends BaseJerseyTest {
         Assert.assertEquals(create1Date, json.getJsonNumber("create_date").longValue());
         Assert.assertNotNull(json.get("update_date"));
         tags = json.getJsonArray("tags");
-        Assert.assertEquals("4", json.getString("gpa"));
+        Assert.assertEquals("2", json.getString("gpa"));
         Assert.assertEquals("10", json.getString("skills"));
         Assert.assertEquals("2", json.getString("experience"));
         Assert.assertEquals("4", json.getString("education"));
@@ -807,63 +799,6 @@ public class TestDocumentResource extends BaseJerseyTest {
         byte[] pdfBytes = ByteStreams.toByteArray(is);
         Assert.assertTrue(pdfBytes.length > 0);
     }
-
-    /**
-     * Test EML import.
-     *
-     * @throws Exception e
-     */
-    @Test
-    public void testEmlImport() throws Exception {
-        // Login document_eml
-        clientUtil.createUser("document_eml");
-        String documentEmlToken = clientUtil.login("document_eml");
-
-        // Import a document as EML
-        JsonObject json;
-        try (InputStream is = Resources.getResource("file/test_mail.eml").openStream()) {
-            StreamDataBodyPart streamDataBodyPart = new StreamDataBodyPart("file", is, "test_mail.eml");
-            try (FormDataMultiPart multiPart = new FormDataMultiPart()) {
-                json = target()
-                        .register(MultiPartFeature.class)
-                        .path("/document/eml").request()
-                        .cookie(TokenBasedSecurityFilter.COOKIE_NAME, documentEmlToken)
-                        .put(Entity.entity(multiPart.bodyPart(streamDataBodyPart),
-                                MediaType.MULTIPART_FORM_DATA_TYPE), JsonObject.class);
-            }
-        }
-
-        String documentId = json.getString("id");
-        Assert.assertNotNull(documentId);
-
-        // Get the document
-        json = target().path("/document/" + documentId).request()
-                .cookie(TokenBasedSecurityFilter.COOKIE_NAME, documentEmlToken)
-                .get(JsonObject.class);
-        Assert.assertEquals("subject here", json.getString("title"));
-        Assert.assertTrue(json.getString("description").contains("content here"));
-        Assert.assertEquals("subject here", json.getString("subject"));
-        Assert.assertEquals("EML", json.getString("format"));
-        Assert.assertEquals("Email", json.getString("source"));
-        Assert.assertEquals("eng", json.getString("language"));
-        Assert.assertEquals(1519222261000L, json.getJsonNumber("create_date").longValue());
-
-        // Get all files from a document
-        json = target().path("/file/list")
-                .queryParam("id", documentId)
-                .request()
-                .cookie(TokenBasedSecurityFilter.COOKIE_NAME, documentEmlToken)
-                .get(JsonObject.class);
-        JsonArray files = json.getJsonArray("files");
-        Assert.assertEquals(2, files.size());
-        Assert.assertEquals("14_UNHCR_nd.pdf", files.getJsonObject(0).getString("name"));
-        Assert.assertEquals(251216L, files.getJsonObject(0).getJsonNumber("size").longValue());
-        Assert.assertEquals("application/pdf", files.getJsonObject(0).getString("mimetype"));
-        Assert.assertEquals("refugee status determination.pdf", files.getJsonObject(1).getString("name"));
-        Assert.assertEquals(279276L, files.getJsonObject(1).getJsonNumber("size").longValue());
-        Assert.assertEquals("application/pdf", files.getJsonObject(1).getString("mimetype"));
-    }
-
     /**
      * Test custom metadata.
      */
@@ -1050,4 +985,5 @@ public class TestDocumentResource extends BaseJerseyTest {
         Assert.assertTrue(meta.getBoolean("value"));
     }
 }
+
 
