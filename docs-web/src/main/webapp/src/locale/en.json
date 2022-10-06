@@ -153,11 +153,10 @@
         "dashboard": "Dashboard",
         "message": "Review dashboard for statistics, metrics, and scoring.",
         "title": "Reviewer Dashboard",
-        "score_gpa": "GPA Value", 
-        "score_skills": "Skills",
-        "score_experience": "Experience",
-        "score_education": "Education",
-        "score_overall": "Overall Score"
+        "gpa": "GPA Value", 
+        "skills": "Skills",
+        "experience": "Experience",
+        "education": "Education"
         
       }
     },
