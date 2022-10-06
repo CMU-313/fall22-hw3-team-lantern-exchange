@@ -479,10 +479,10 @@ public class DocumentResource extends BaseResource {
                     .add("active_route", documentDto.isActiveRoute())
                     .add("current_step_name", JsonUtil.nullable(documentDto.getCurrentStepName()))
                     .add("file_count", documentDto.getFileCount())
-                    .add("gpa", documentDto.getGpa())
-                    .add("skills", documentDto.getSkills())
-                    .add("experience", documentDto.getExperience())
-                    .add("education", documentDto.getEducation())
+                    .add("gpa", JsonUtil.nullable(documentDto.getGpa()))
+                    .add("skills", JsonUtil.nullable(documentDto.getSkills()))
+                    .add("experience", JsonUtil.nullable(documentDto.getExperience()))
+                    .add("education", JsonUtil.nullable(documentDto.getEducation()))
                     .add("tags", tags);
             if (Boolean.TRUE == files) {
                 JsonArrayBuilder filesArrayBuilder = Json.createArrayBuilder();
@@ -980,7 +980,7 @@ public class DocumentResource extends BaseResource {
      */
 
     @POST
-    @Path("{rate/id: [a-z0-9\\-]+}")
+    @Path("rate/{id: [a-z0-9\\-]+}")
     public Response rate(
             @PathParam("id") String id,
             @FormParam("gpa") String gpa,
@@ -1012,13 +1012,30 @@ public class DocumentResource extends BaseResource {
         
         // Update the document
         String curGpa = document.getGpa();
-        document.setGpa(curGpa+" "+gpa);
+        if (curGpa == "") {
+            document.setGpa(gpa);
+        } else {
+            document.setGpa(curGpa+" "+gpa);
+        }
         String curSkills = document.getSkills();
-        document.setSkills(curSkills + " " + skills);
+        if (curSkills == "") {
+            document.setSkills(skills);
+        } else {
+            document.setSkills(curSkills+" "+skills);
+        }
         String curExperience = document.getExperience();
-        document.setGpa(curExperience+" "+experience);
+        if (curExperience == "") {
+            document.setExperience(experience);
+        } else {
+            document.setGpa(curExperience+" "+experience);
+        }
         String curEducation = document.getEducation();
-        document.setEducation(curEducation + " " + education);
+        if (curEducation == "") {
+            document.setEducation(education);
+        } else {
+            document.setEducation(curEducation + " " + education);
+        }
+        
 
         
         documentDao.update(document, principal.getId());
@@ -1248,3 +1265,4 @@ public class DocumentResource extends BaseResource {
         }
     }
 }
+
