@@ -4,19 +4,38 @@
  * Document view dashboard controller.
  * Added as part of feature review dashboard.
  */
-
- //angular.module('docs').controller('DocumentViewDashboard', function($scope) {
-    // Convert string from dropdown to number
-    //var numval = document.getElementById("gpa");
-    //var value = numval.value;
-
-    // Submitting scores
-
+    //getting values from the document
+    var gpa = this;
+    var skills = this;
+    var experience = this;
+    var education = this;
+    //for scores
     var gpaTotal = 0;
     var skillsTotal = 0;
     var experienceTotal = 0;
     var educationTotal = 0;
     var reviewCount = 0;
+    
+    document.getEvent = function() {
+        Restangular.one('document', gpa).get().then(function(gpa) {
+          $scope.document = gpa;
+      },
+      Restangular.one('document', skills).get().then(function(skills) {
+        $scope.document = skill;
+      },
+      Restangular.one('document', experience).get().then(function(experience) {
+        $scope.document = experience;
+      },
+        Restangular.one('document', education).get().then(function(education) {
+          $scope.document = education;
+      },
+
+
+
+    
+    // Submitting scores
+
+
 
     function getScores() {
       reviewCount += 1;
@@ -58,6 +77,7 @@
       document.querySelector('.overallAvg').textContent = (gpaTotal / reviewCount) + (skillsTotal / reviewCount) + (experienceTotal / reviewCount) + (educationTotal / reviewCount) + "/40";
       
     }
+        ))))}
 
 
 
