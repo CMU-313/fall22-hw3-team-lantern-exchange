@@ -1,0 +1,114 @@
+<p class="well-sm" translate="document.view.dashboard.message"></p>
+
+<!-- below source to js file may not be necessary as was added to index.html-->
+<script src="https://code.angularjs.org/snapshot/angular.js"></script>
+<script src="../../app/docs/controller/document/DocumentViewDashboard.js" 
+    type="text/javascript"></script>
+
+<div class="well" ng-app="dashboardApp" ng-controller="DashboardCtrl">
+  <h3>Reviewer Dashboard</h3> 
+  <table>
+    <form>
+      <label for="GPA">Score Applicant's GPA:   </label>
+      <select id="GPA">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10">10</option>
+      </select>
+      
+      <br>
+
+    <label for="Skills">Score Applicant's Skills:   </label>
+    <select id="skills">
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+      <option value="6">6</option>
+      <option value="7">7</option>
+      <option value="8">8</option>
+      <option value="9">9</option>
+      <option value="10">10</option>
+    </select>
+    <br>
+
+    <label for="Experience">Score Applicant's Experience:   </label>
+    <select id="experience" name="scores" ng-model="ExpSelect">
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+      <option value="6">6</option>
+      <option value="7">7</option>
+      <option value="8">8</option>
+      <option value="9">9</option>
+      <option value="10">10</option>
+    </select>
+    <br>
+
+    <label for="Education">Score Applicant's Education:   </label>
+    <select id="education" name="scores" ng-model="EduSelect">
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+      <option value="6">6</option>
+      <option value="7">7</option>
+      <option value="8">8</option>
+      <option value="9">9</option>
+      <option value="10">10</option>
+    </select>
+    <br>
+    <button class="btn btn-default" onclick="getScores()">Save</button>
+    
+  </form>
+
+
+
+
+
+</table>
+
+</div>
+
+<table class="table table-dashboard">
+    <h3>Average of all Reviewer Scores*</h3>
+    <h6>*Updates periodically after submitting reviewer scores.</h6>
+    <caption>Number of completed reviews on this applicant: <span class="reviewers"></span> </caption>
+    <tr>
+      <th>GPA: </th>
+      <td> <span class="gpaAvg"></span>  </td>
+    </tr>
+    <tr>
+      <th>Skills:</th>
+      <td> <span class="skillsAvg"></span>  </td>
+    </tr>
+    <tr>
+      <th>Experience:</th>
+      <td> <span class="experienceAvg"></span>  </td>
+    </tr>
+    <tr>
+      <th>Education:</th>
+      <td> <span class="educationAvg"></span>  </td>
+    </tr>
+    <tr>
+      <th>Overall Score (Total of Averages):</th>
+      <td> <span class="overallAvg"></span>  </td>
+    </tr>
+</table>
+
+<caption> Ignore: <span class="gpaScore"></span> </caption>
+<caption> <span class="skillsScore"></span> </caption>
+<caption> <span class="experienceScore"></span> </caption>
+<caption> <span class="educationScore"></span> </caption>
+

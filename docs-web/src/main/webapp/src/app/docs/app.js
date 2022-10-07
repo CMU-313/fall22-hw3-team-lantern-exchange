@@ -355,6 +355,15 @@ angular.module('docs',
         }
       }
     })
+    .state('document.view.dashboard', {
+      url: '/dashboard',
+      views: {
+        'tab': {
+          templateUrl: 'partial/docs/document.view.dashboard.html',
+          controller: 'DocumentViewDashboard'
+        }
+      }
+    })
     .state('login', {
       url: '/login?redirectState&redirectParams',
       views: {
